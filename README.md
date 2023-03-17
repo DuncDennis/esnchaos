@@ -4,6 +4,16 @@
 Simply Python package to build and use Echo State Networks for the task of predicting
 chaotic time series. 
 ----
+
+⚠️: This is the *master-thesis* branch.
+- This branch aims to implement all the necessary code to create the plots for my 
+master-thesis. 
+- All the plots where actually created here: https://github.com/DuncDennis/EchoStateNetworkViewer/tree/masters_thesis_plots
+
+⬇️ main branch readme below:
+
+------------------------
+
 ### 🚧 Under construction 🚧: 
 - Not sure to what extent this package will be developed as there are already nice 
     ESN packages, such as [reservoirpy](https://github.com/reservoirpy/reservoirpy) and 
