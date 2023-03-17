@@ -14,9 +14,9 @@ import pandas as pd
 # 10.01.2023 added for specific metric used here (max pc number).
 from sklearn.decomposition import PCA
 
-import src.esnchaos.data_preprocessing as datapre
-import src.esnchaos.utilities as utilities
-import src.esnchaos.measures as measures
+import esnchaos.data_preprocessing as datapre
+import esnchaos.utilities as utilities
+import esnchaos.measures as measures
 
 def mse(y_true: np.ndarray, y_pred: np.ndarray) -> float:
     """The mean squared error between y_true and y_pred.

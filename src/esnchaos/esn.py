@@ -19,7 +19,7 @@ from sklearn.preprocessing import StandardScaler
 # FOR Rgen pca:
 from sklearn.decomposition import PCA
 
-import src.esnchaos.utilities as utilities
+import esnchaos.utilities as utilities
 
 class ResCompCore(ABC):
     """
