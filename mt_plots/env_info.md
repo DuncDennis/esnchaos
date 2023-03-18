@@ -18,4 +18,9 @@ To exactly reproduce the masters-thesis plots follow these steps:
     ```
    
 4. From the activated ``esnchaos`` environment run the python files under 
-``mt_plots`` to recreate the plots. 
+``mt_plots/fast_plots`` to recreate the plots which can be simulated rather fast. 
+
+
+5. [TBD] Run the python files under ``mt_plots/ensemble_experiment_plots`` to
+reproduce the more computationally expensive ensemble experiments. 
+The results are saved as pickled Pandas dataframes. 
