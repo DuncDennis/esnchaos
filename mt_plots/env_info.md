@@ -24,3 +24,6 @@ To exactly reproduce the masters-thesis plots follow these steps:
 5. [TBD] Run the python files under ``mt_plots/ensemble_experiment_plots`` to
 reproduce the more computationally expensive ensemble experiments. 
 The results are saved as pickled Pandas dataframes. 
+
+
+**TODO:** Figure out how to extract results_viewer_v2's plotting functionality efficiently. 
