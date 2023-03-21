@@ -6,18 +6,7 @@ import pathlib
 
 import pandas as pd
 
-from esnchaos import utilities as utils
-
-
-### Utility:
-def _get_param_cols(df: pd.DataFrame) -> list:
-    """Get all columns starting with <P >."""
-    return [x for x in df.columns if x.startswith("P ")]
-
-
-def _get_metric_cols(df: pd.DataFrame) -> list:
-    """Get all columns starting with <M >."""
-    return [x for x in df.columns if x.startswith("M ")]
+import esnchaos.plot.utilities as plot_utils
 
 
 def read_pkl(path: str | pathlib.Path) -> pd.DataFrame:
@@ -46,7 +35,7 @@ def pre_filter_df(
 
     # Remove all parameter columns which are constant throughout the DF.
     if rmv_const_cols:
-        parameter_cols = _get_param_cols(df_out)
+        parameter_cols = plot_utils.get_param_cols(df_out)
         for col in parameter_cols:
             if len(df_out[col].unique()) == 1:
                 df_out.drop(col, inplace=True, axis=1)
@@ -64,17 +53,17 @@ def aggregate_df(df: pd.DataFrame,
         avg_str = "mean"
         error_high_str = "std_high"
         error_low_str = "std_low"
-        avg = utils.mean
-        error_high = utils.std_high
-        error_low = utils.std_low
+        avg = plot_utils.mean
+        error_high = plot_utils.std_high
+        error_low = plot_utils.std_low
 
     elif avg_mode == "median_and_quartile":
         avg_str = "median"
         error_high_str = "quartile_high"
         error_low_str = "quartile_low"
-        avg = utils.median
-        error_high = utils.quartile_high
-        error_low = utils.quartile_low
+        avg = plot_utils.median
+        error_high = plot_utils.quartile_high
+        error_low = plot_utils.quartile_low
 
     else:
         raise ValueError("avg_mode must be either mean_and_std or median_and_quartile.")
@@ -82,8 +71,8 @@ def aggregate_df(df: pd.DataFrame,
     stat_funcs = [avg, error_high, error_low]
 
     # aggregate:
-    parameter_cols = _get_param_cols(df)
-    metric_cols = _get_metric_cols(df)
+    parameter_cols = plot_utils.get_param_cols(df)
+    metric_cols = plot_utils.get_metric_cols(df)
     if metrics_subset is not None:
         for metric in metrics_subset:
             if metric not in metric_cols:
@@ -117,3 +106,5 @@ def aggregate_df(df: pd.DataFrame,
     df_agg.rename(columns=dict(zip(prev_cols, new_cols)), inplace=True)
 
     return df_agg
+
+
