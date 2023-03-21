@@ -3,5 +3,5 @@ from . import esn
 from . import measures
 from . import simulations
 from . import sweep_experiments
-from . import sweep_plots
+from . import plot
 from . import utilities
