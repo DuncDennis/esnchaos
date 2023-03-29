@@ -15,6 +15,8 @@ PARAM_TRANSFORM_LTX = {
     "P system": r"\text{system}$",
     "P rr_type": r"\text{ridge regression type}$",
     "P data_offset": r"\text{data offset } \delta$",
+    "P dim_subset": r"\text{selected dimension } l$",
+    "P r_to_rgen_opt": r"\text{Readout function } \Psi$",
 }
 
 # PARAMETER TRANSFORMATIONS html:
@@ -30,7 +32,8 @@ PARAM_TRANSFORM_HTML = {
 # METRIC TRANSFORMATIONS latex:
 METRIC_TRANSFORM_LTX = {
     "M TRAIN PCMAX": r" i_\text{co}$",
-    "M VALIDATE VT": r" t_\text{v} \lambda_\text{max}$"
+    "M VALIDATE VT": r" t_\text{v} \lambda_\text{max}$",
+    "M TRAIN MSE": r" \text{MSE}$",
 }
 
 # global default plot params
@@ -90,3 +93,36 @@ DEFAULT_PLOT_ONE_DIM_PARAMS = dict(
 
 DEFAULT_PLOT_ONE_DIM_PARAMS = DEFAULT_PLOT_ONE_DIM_PARAMS | DEFAULT_PLOT_PARAMS
 
+DEFAULT_PLOT_ONE_DIM_VIOLIN_PARAMS = dict(
+    # Layout:
+    width=550,
+    height=int(0.65*550),
+    margin_dict=dict(l=5, r=5, t=5, b=5),
+
+    # logarthmic axes:
+    log_x = False,
+
+    # Highlight one x value:
+    color_green_at_val = None,
+
+    # Grid:
+    grid_settings_dict=dict(
+        showgrid=True,
+        gridwidth=1,
+        gridcolor="gray"
+    ),
+
+    # no xaxis title:
+    no_xaxis_title=False,
+
+    # x axis dict:
+    x_axis_dict=dict(),
+
+    # y axis dict:
+    y_axis_dict=dict(),
+
+    # x_param value transformation:
+    x_param_val_transform_dict=None,
+)
+
+DEFAULT_PLOT_ONE_DIM_VIOLIN_PARAMS = DEFAULT_PLOT_ONE_DIM_VIOLIN_PARAMS | DEFAULT_PLOT_PARAMS
