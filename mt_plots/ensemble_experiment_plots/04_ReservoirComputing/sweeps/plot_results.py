@@ -1,4 +1,6 @@
-"""Read all pkl files from a designated folder and save the plots."""
+"""Read all pkl files from a designated folder and save the plots.
+TODO: For now does not handle the saving of the plots -> has to be implemented.
+"""
 
 from pathlib import Path
 
