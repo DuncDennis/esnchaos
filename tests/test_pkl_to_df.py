@@ -86,4 +86,9 @@ def test_data_aggregation(results_df):
                                    metrics_subset=["M DOES NOT EXIST"])
 
 
+def test_run_and_load_sweep_exp_different_metrics_same_result(results_df,
+                                                              results_df_pcc_metric):
+    """Check if whole dataframe except new metric is the same."""
+    df_pcc = results_df_pcc_metric.drop("M TRAIN PCMAX", axis=1, inplace=False)
 
+    assert df_pcc.equals(results_df)
