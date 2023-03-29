@@ -1,8 +1,5 @@
 # Pycharm files:
 .idea
 
-# Ignore masterthesis plots here (if they exist).
-mt_plots
-
 # Ignore distribution:
 *.egg-info/
