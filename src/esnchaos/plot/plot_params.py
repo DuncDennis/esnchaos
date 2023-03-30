@@ -126,3 +126,63 @@ DEFAULT_PLOT_ONE_DIM_VIOLIN_PARAMS = dict(
 )
 
 DEFAULT_PLOT_ONE_DIM_VIOLIN_PARAMS = DEFAULT_PLOT_ONE_DIM_VIOLIN_PARAMS | DEFAULT_PLOT_PARAMS
+
+
+DEFAULT_PLOT_TWO_DIM_PARAMS = dict(
+    # Layout:
+    width=550,
+    height=int(0.65 * 550),
+    margin_dict=dict(l=5, r=5, t=5, b=5),
+
+    # Error bar:
+    error_barwidth=8,
+    error_thickness=2,
+
+    # line:
+    line_width=3,
+
+    # x Grid:
+    x_grid_settings_dict=dict(
+    ),
+
+    # y Grid:
+    y_grid_settings_dict=dict(
+        showgrid=True,
+        gridwidth=1,
+        gridcolor="gray"
+    ),
+
+    # logarthmic axes:
+    log_x=False,
+
+    # x axis dict:
+    x_axis_dict=dict(),
+
+    # y axis dict:
+    y_axis_dict=dict(),
+
+    # show legend:
+    show_legend=True,
+
+    # legend dict:
+    legend_dict=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=1.01,  # 0.99
+        xanchor="left",
+        # x=0.01,
+        font=dict(size=20),
+        bordercolor="grey",
+        borderwidth=2,
+    ),
+
+    # line color and style:
+    hex_color_list = None,
+    line_style_list = None,
+    color_alpha = 1.0,
+
+    # order of param values:
+    col_param_val_rename_func=None,
+    col_param_val_order_dict=None,
+)
+DEFAULT_PLOT_TWO_DIM_PARAMS = DEFAULT_PLOT_TWO_DIM_PARAMS | DEFAULT_PLOT_PARAMS

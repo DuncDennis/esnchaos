@@ -45,6 +45,13 @@ def get_y_metric(df: pd.DataFrame,
     return y_metric
 
 
+def hex_to_rgba(h, alpha):
+    '''
+    converts color value in hex format to rgba format with alpha transparency
+    '''
+    return "rgba" + str(tuple([int(h.lstrip('#')[i:i+2], 16) for i in (0, 2, 4)] + [alpha]))
+
+
 def overwrite_plot_params(new_params: dict[str, Any] | None,
                           default_params: dict[str, Any]) -> dict[str, Any]:
     """Overwrite the default parameter dict with some values."""
