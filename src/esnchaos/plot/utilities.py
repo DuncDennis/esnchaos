@@ -61,8 +61,8 @@ def overwrite_plot_params(new_params: dict[str, Any] | None,
             if k in out_params.keys():
                 out_params[k] = v
             else:
-                raise ValueError(f"The given key {k} is not available in plot_params."
-                                 f"PLOT_ONE_DIM_PARAMS.")
+                raise ValueError(f"The given key {k} is not available in "
+                                 f"default_params: {default_params}.")
     return out_params
 
 
