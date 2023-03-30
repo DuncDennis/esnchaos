@@ -1,6 +1,7 @@
 """Create plots from dataframes created from sweep experiments."""
 from __future__ import annotations
 
+import numpy as np
 import pandas as pd
 import plotly.graph_objs as go
 import plotly.io as pio
@@ -308,4 +309,102 @@ def plot_two_dim_sweep(agg_df: pd.DataFrame,
         showlegend=p["show_legend"]
     )
 
+    return fig
+
+
+def plot_m_vs_m_scatter(agg_df: pd.DataFrame,
+                        x_metric: str,
+                        y_metric: str,
+                        col_param: str,
+                        params: dict[str, Any]) -> go.Figure:
+    """Scatter plot with error bars metric vs metric with colored points."""
+
+
+    # Modify parameters if applicable.
+    p = pu.overwrite_plot_params(params,
+                                 default_params=pp.DEFAULT_PLOT_M_VS_M_PARAMS)
+
+    col_title = pu.get_auto_axis_title(col_param,
+                                       p["param_transform_html"])
+
+    # log color:
+    if p["log_col"]:
+        agg_df[col_param] = np.log10(agg_df[col_param])
+        tick_prefix = "10<sup>"
+        tick_suffix = "</sup>"
+    else:
+        tick_prefix = ""
+        tick_suffix = ""
+
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Scatter(x=agg_df[x_metric + "|" + "avg"],
+                   y=agg_df[y_metric + "|" + "avg"],
+                   error_y=dict(
+                       array=agg_df[y_metric + "|" + "error_high"],
+                       arrayminus=agg_df[y_metric + "|" + "error_low"],
+                       thickness=p["error_thickness"]
+                   ),
+                   error_x=dict(
+                       array=agg_df[x_metric + "|" + "error_high"],
+                       arrayminus=agg_df[x_metric + "|" + "error_low"],
+                       thickness=p["error_thickness"]
+                   ),
+                   mode="markers",
+                   marker=dict(color=agg_df[col_param],
+
+                               colorbar=dict(
+                                   len=0.95,
+                                   tickprefix=tick_prefix,
+                                   ticksuffix=tick_suffix,
+                                   dtick=p["color_dtick"],
+                                   tick0=p["color_tick0"],
+                                   ticks="outside",
+                                   title=col_title,
+                                   orientation="v",
+                               ),
+                               colorscale="portland",
+                               size=p["marker_size"],
+                               line=dict(width=p["marker_line_width"],
+                                         color=p["marker_line_color"]))
+                   ),
+    )
+
+
+    # y axis title:
+    yaxis_title = pu.get_auto_axis_title(y_metric,
+                                         p["metric_transform_ltx"],
+                                         p["latex_text_size"])
+    fig.update_layout(
+        yaxis_title=yaxis_title
+    )
+
+    # x axis title:
+    xaxis_title = pu.get_auto_axis_title(x_metric,
+                                         p["metric_transform_ltx"],
+                                         p["latex_text_size"])
+    fig.update_layout(
+        xaxis_title=xaxis_title
+    )
+
+    # Axis ticks and range:
+    fig.update_yaxes(**p["y_axis_dict"])
+    fig.update_xaxes(**p["x_axis_dict"])
+
+    # Grid:
+    fig.update_xaxes(**p["x_grid_settings_dict"])
+    fig.update_yaxes(**p["y_grid_settings_dict"])
+
+    # layout:
+    fig.update_layout(
+        width=p["width"],
+        height=p["height"],
+        template=p["template"],
+        font=dict(
+            size=p["font_size"],
+            family=p["font_family"]
+        ),
+        margin=p["margin_dict"]
+    )
     return fig

@@ -48,3 +48,9 @@ def filtered_df_pcc_metric(results_df_pcc_metric) -> pd.DataFrame:
     return pkl_to_df.pre_filter_df(results_df_pcc_metric,
                                    excluded_params={"P r_dim": [30]},
                                    rmv_const_cols=True)
+
+@pytest.fixture
+def fil_agg_df_pcc_metric(filtered_df_pcc_metric) -> pd.DataFrame:
+    """Simple fixture to return the aggregated df."""
+
+    return pkl_to_df.aggregate_df(filtered_df_pcc_metric)
