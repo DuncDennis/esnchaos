@@ -58,3 +58,29 @@ def test_plot_one_dim_violin_sweep(filtered_df_pcc_metric):
         params=params
     )
     assert type(fig) == go.Figure
+
+
+def test_plot_two_dim_sweep(agg_df):
+    params = dict(
+        hex_color_list=["#000000"],
+        line_style_list=["dash", "dot"],
+        color_alpha=0.5,
+        col_param_val_rename_func=lambda x: {
+            30: "a",
+            40: "b",
+        }[x],
+        col_param_val_order_dict={
+            "a": 2,
+            "b": 1,
+        }
+
+    )
+
+    fig = df_to_plot.plot_two_dim_sweep(
+        agg_df,
+        x_param="P node_bias_scale",
+        y_metric="M VALIDATE VT",
+        col_param="P r_dim",
+        params=params
+    )
+    assert type(fig) == go.Figure
