@@ -72,8 +72,8 @@ def test_plot_two_dim_sweep(agg_df):
         col_param_val_order_dict={
             "a": 2,
             "b": 1,
-        }
-
+        },
+        no_xaxis_title=True
     )
 
     fig = df_to_plot.plot_two_dim_sweep(

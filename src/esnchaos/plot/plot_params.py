@@ -155,6 +155,9 @@ DEFAULT_PLOT_TWO_DIM_PARAMS = dict(
     # logarthmic axes:
     log_x=False,
 
+    # no xaxis title:
+    no_xaxis_title=False,
+
     # x axis dict:
     x_axis_dict=dict(),
 
