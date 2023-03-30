@@ -90,9 +90,6 @@ def plot_one_dim_sweep(agg_df: pd.DataFrame,
         margin=p["margin_dict"]
     )
 
-    # show:
-    fig.show()
-
     return fig
 
 
@@ -185,7 +182,6 @@ def plot_one_dim_violin_sweep(df: pd.DataFrame,
         showlegend=False
     )
 
-    fig.show()
     return fig
 
 
@@ -269,9 +265,12 @@ def plot_two_dim_sweep(agg_df: pd.DataFrame,
                          exponentformat=p["exponentformat"])
 
     # x axis title:
-    xaxis_title = pu.get_auto_axis_title(x_param,
-                                         p["param_transform_ltx"],
-                                         p["latex_text_size"])
+    if p["no_xaxis_title"]:
+        xaxis_title = None
+    else:
+        xaxis_title = pu.get_auto_axis_title(x_param,
+                                             p["param_transform_ltx"],
+                                             p["latex_text_size"])
     fig.update_layout(
         xaxis_title=xaxis_title
     )
@@ -309,5 +308,4 @@ def plot_two_dim_sweep(agg_df: pd.DataFrame,
         showlegend=p["show_legend"]
     )
 
-    fig.show()
     return fig
