@@ -1,5 +1,4 @@
 """Read all pkl files from a designated folder and save the plots.
-TODO: For now does not handle the saving of the plots -> has to be implemented.
 """
 
 from pathlib import Path
@@ -12,6 +11,7 @@ import esnchaos.plot.utilities as plot_utils
 col_pal_simple_white = pio.templates["simple_white"].layout.colorway
 
 RESULTS_PKL_DIR = "original_data"
+OUTPUT_DIR = "created_plots"
 Y_METRIC = "M VALIDATE VT"
 COL_PARAM = "P perform_pca_bool"
 AVG_MODE = "median_and_quartile"
@@ -42,6 +42,7 @@ if __name__ == "__main__":
     pkl_files = list(path.glob("*.pkl"))
 
     for i, pkl_file_path in enumerate(pkl_files):
+        out_plot_name = pkl_file_path.name.split(".")[0]
 
         df = pkl_to_df.read_pkl(pkl_file_path)
 
@@ -79,4 +80,6 @@ if __name__ == "__main__":
                                             col_param=COL_PARAM,
                                             params=params)
 
-        fig.write_image(f"test.png", scale=3)
+        Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
+
+        fig.write_image(f"{OUTPUT_DIR}/{out_plot_name}.png", scale=3)

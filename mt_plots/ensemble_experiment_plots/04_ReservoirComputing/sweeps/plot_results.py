@@ -1,5 +1,4 @@
 """Read all pkl files from a designated folder and save the plots.
-TODO: For now does not handle the saving of the plots -> has to be implemented.
 """
 
 from pathlib import Path
@@ -9,6 +8,7 @@ import esnchaos.plot.df_to_plot as df_to_plot
 import esnchaos.plot.utilities as plot_utils
 
 RESULTS_PKL_DIR = "original_data"
+OUTPUT_DIR = "created_plots"
 Y_METRIC = "M VALIDATE VT"
 AVG_MODE = "median_and_quartile"
 
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     pkl_files = list(path.glob("*.pkl"))
 
     for i, pkl_file_path in enumerate(pkl_files):
-
+        out_plot_name = pkl_file_path.name.split(".")[0]
         df = pkl_to_df.read_pkl(pkl_file_path)
 
         df_pre_fil = pkl_to_df.pre_filter_df(df, rmv_const_cols=True)
@@ -79,7 +79,10 @@ if __name__ == "__main__":
         if x_param in LOG_X_PARAMS:
             params["log_x"] = True
 
-        df_to_plot.plot_one_dim_sweep(df_agg,
-                                      x_param=x_param,
-                                      y_metric=Y_METRIC,
-                                      params=params)
+        fig = df_to_plot.plot_one_dim_sweep(df_agg,
+                                            x_param=x_param,
+                                            y_metric=Y_METRIC,
+                                            params=params)
+        Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
+
+        fig.write_image(f"{OUTPUT_DIR}/{out_plot_name}.png", scale=3)

@@ -1,5 +1,4 @@
 """Read all pkl files from a designated folder and save the plots.
-TODO: For now does not handle the saving of the plots -> has to be implemented.
 """
 
 from pathlib import Path
@@ -12,6 +11,7 @@ import esnchaos.plot.utilities as plot_utils
 col_pal_simple_white = pio.templates["simple_white"].layout.colorway
 
 RESULTS_PKL_DIR = "original_data"
+OUTPUT_DIR = "created_plots"
 Y_METRIC = "M VALIDATE VT"
 COL_PARAM = "P predictor_type"
 AVG_MODE = "median_and_quartile"
@@ -62,6 +62,12 @@ DASH_STYLES_DICT = {
     ]
 }
 
+# NAMES FOR SYSTEMS:
+def rename_windmi(x: str):
+    if x == "WindmiAttractor":
+        return "Windmi"
+    else: return x
+
 if __name__ == "__main__":
     path = Path(RESULTS_PKL_DIR)
 
@@ -83,8 +89,11 @@ if __name__ == "__main__":
 
         # get x_param:
         param_cols = plot_utils.get_param_cols(df_agg)
+        no_xaxis_title=False
         if "P system" in param_cols:
             x_param = "P system"
+            no_xaxis_title=True
+            df_agg["P system"] = df_agg["P system"].apply(rename_windmi)
         elif "P r_dim" in param_cols:
             x_param = "P r_dim"
         elif "P model_error_eps" in param_cols:
@@ -95,6 +104,8 @@ if __name__ == "__main__":
 
         # adjust dtick for some files:
         if out_plot_name == "lorenz_eps_model_effect_of_r_dim__06_01_2023__000":
+            y_axis_dict = {"dtick": 5}
+        elif out_plot_name == "all_systems_dimselect_large_res__18_01_2023__000":
             y_axis_dict = {"dtick": 5}
         else:
             y_axis_dict = Y_AXIS_DICT
@@ -119,6 +130,7 @@ if __name__ == "__main__":
             y_grid_settings_dict=GRID_SETTINGS,
             col_param_val_rename_func=lambda x: HYBRIDNAMES[x],
             col_param_val_order_dict=HYBRIDORDER,
+            no_xaxis_title=no_xaxis_title
         )
 
         # log x:
@@ -131,4 +143,6 @@ if __name__ == "__main__":
                                             col_param=COL_PARAM,
                                             params=params)
 
-        fig.write_image(f"{out_plot_name}.png", scale=3)
+        Path(OUTPUT_DIR).mkdir(parents=True, exist_ok=True)
+
+        fig.write_image(f"{OUTPUT_DIR}/{out_plot_name}.png", scale=3)
