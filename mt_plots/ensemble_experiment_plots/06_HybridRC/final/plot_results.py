@@ -45,23 +45,6 @@ HYBRIDNAMES = {"no_hybrid": "only reservoir",
                "full_hybrid": "full hybrid",
                "model_predictor": "only model"}
 
-DASH_STYLES_DICT = {
-    "with_model_only": [
-        "dash",
-        "solid",
-        "solid",
-        "solid",
-        "dot"
-    ],
-    "without_model_only": [
-        "dash",
-        "solid",
-        "solid",
-        "solid",
-        "dot"
-    ]
-}
-
 # NAMES FOR SYSTEMS:
 def rename_windmi(x: str):
     if x == "WindmiAttractor":
@@ -82,11 +65,6 @@ if __name__ == "__main__":
         df_agg = pkl_to_df.aggregate_df(df_pre_fil,
                                         avg_mode=AVG_MODE)
 
-        if "model_predictor" in df_agg[COL_PARAM].unique():
-            line_style_list = DASH_STYLES_DICT["with_model_only"]
-        else:
-            line_style_list = DASH_STYLES_DICT["without_model_only"]
-
         # get x_param:
         param_cols = plot_utils.get_param_cols(df_agg)
         no_xaxis_title=False
@@ -103,9 +81,9 @@ if __name__ == "__main__":
             print("Not recognized")
 
         # adjust dtick for some files:
-        if out_plot_name == "lorenz_eps_model_effect_of_r_dim__06_01_2023__000":
+        if out_plot_name.startswith("lorenz_eps_model_effect_of_r_dim"):
             y_axis_dict = {"dtick": 5}
-        elif out_plot_name == "all_systems_dimselect_large_res__18_01_2023__000":
+        elif out_plot_name.startswith("all_systems_dimselect_large_res"):
             y_axis_dict = {"dtick": 5}
         else:
             y_axis_dict = Y_AXIS_DICT
@@ -121,7 +99,13 @@ if __name__ == "__main__":
                 col_pal_simple_white[2],  # green
                 "#797979"  # gray
             ],
-            line_style_list=line_style_list,
+            line_style_list=[
+                "dash",
+                "solid",
+                "solid",
+                "solid",
+                "dot"
+            ],
             width=650,
             height=450,
             line_width=4,
