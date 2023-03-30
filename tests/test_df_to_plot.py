@@ -84,3 +84,19 @@ def test_plot_two_dim_sweep(agg_df):
         params=params
     )
     assert type(fig) == go.Figure
+
+
+def test_plot_m_vs_m_scatter(fil_agg_df_pcc_metric):
+    params = dict(
+        log_col=True
+    )
+
+    fig = df_to_plot.plot_m_vs_m_scatter(
+        fil_agg_df_pcc_metric,
+        x_metric="M TRAIN MSE",
+        y_metric="M VALIDATE VT",
+        col_param="P node_bias_scale",
+        params=params
+    )
+    fig.show()
+    assert type(fig) == go.Figure

@@ -33,7 +33,8 @@ PARAM_TRANSFORM_HTML = {
 METRIC_TRANSFORM_LTX = {
     "M TRAIN PCMAX": r" i_\text{co}$",
     "M VALIDATE VT": r" t_\text{v} \lambda_\text{max}$",
-    "M TRAIN MSE": r" \text{MSE}$",
+    "M TRAIN MSE": r" \text{MSE train}$",
+    "M VALIDATE MSE": r" \text{MSE validate}$",
 }
 
 # global default plot params
@@ -189,3 +190,49 @@ DEFAULT_PLOT_TWO_DIM_PARAMS = dict(
     col_param_val_order_dict=None,
 )
 DEFAULT_PLOT_TWO_DIM_PARAMS = DEFAULT_PLOT_TWO_DIM_PARAMS | DEFAULT_PLOT_PARAMS
+
+
+DEFAULT_PLOT_M_VS_M_PARAMS = dict(
+    # Layout:
+    width=600,
+    height=int(0.7 * 600),
+    margin_dict=dict(l=20, r=20, t=20, b=20),
+
+    # x axis dict:
+    x_axis_dict=dict(),
+
+    # y axis dict:
+    y_axis_dict=dict(),
+
+    # Error bar:
+    # error_barwidth=8,
+    error_thickness=1,
+
+    # x Grid:
+    x_grid_settings_dict=dict(
+        showgrid=True,
+        gridwidth=1,
+        gridcolor='rgba(0,0,0,0.2)'
+    ),
+
+    # y Grid:
+    y_grid_settings_dict=dict(
+        showgrid=True,
+        gridwidth=1,
+        gridcolor='rgba(0,0,0,0.2)'
+    ),
+
+    # Color logscale:
+    log_col = False,
+
+    # marker styling:
+    marker_line_width=1,
+    marker_line_color="DarkSlateGrey",
+    marker_size=12,
+
+    # colorbar ticks:
+    color_dtick=None,
+    color_tick0=None,
+
+)
+DEFAULT_PLOT_M_VS_M_PARAMS = DEFAULT_PLOT_M_VS_M_PARAMS | DEFAULT_PLOT_PARAMS
