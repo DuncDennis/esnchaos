@@ -617,7 +617,9 @@ class NetworkMixin:
         Specification done via protected members
 
         """
-
+        # if r_dim = 0 do nothing:
+        if self.r_dim == 0:
+            return
         # contains tuples of non-zero elements:
         arg_binary_network = np.argwhere(self._network)
 
