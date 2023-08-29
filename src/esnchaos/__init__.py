@@ -5,3 +5,4 @@ from . import simulations
 from . import sweep_experiments
 from . import plot
 from . import utilities
+from . import rom
