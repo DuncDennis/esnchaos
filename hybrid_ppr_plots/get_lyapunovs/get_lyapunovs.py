@@ -14,7 +14,7 @@ dict_of_sys_params = {
                  "beta": 8 / 3,
                  # "dt": 0.1,  # Paper value
                  "dt": 0.05,  # New for better lyapunov
-                 "lle": 0.9059},
+                 "lle": 0.9056},
 
     # Sprott check
     "Roessler": {"a": 0.2,
@@ -45,7 +45,7 @@ dict_of_sys_params = {
     "Thomas": {"b": 0.18,
                # "dt": 0.4, # Paper value
                "dt": 0.3, # New for better lyapunov
-               "lle": 0.0359,
+               "lle": 0.0349,
                },
 
     # Sprott check
@@ -76,6 +76,7 @@ dict_of_sys_params = {
                             "dt": 0.25,
                             "lle": 0.07}  # Value from pathak
 }
+lles_perc_diff = []
 
 for sysname, sysparams in dict_of_sys_params.items():
     print(sysname)
@@ -105,8 +106,12 @@ for sysname, sysparams in dict_of_sys_params.items():
     perc_diff = np.abs(sprott_lle - lle_value) / sprott_lle * 100
 
     print(f"Sprott: {sprott_lle}, calc: {lle_value}, perc_diff: {perc_diff}")
-
+    lles_perc_diff.append(perc_diff)
     # save lle:
     dict_of_sys_params[sysname]["lle_calc"] = lle_value
 
     print("--------------------------------------------------------")
+
+
+import numpy as np
+print(f"average perc difference: {np.mean(lles_perc_diff)}")
